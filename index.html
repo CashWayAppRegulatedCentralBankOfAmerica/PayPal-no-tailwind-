@@ -2,82 +2,58 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PayPal Clone</title>
   <style>
     body {
       font-family: 'Helvetica', sans-serif;
       background-color: #f2f4fb;
       margin: 0;
-      padding-bottom: 180px;
+      padding-bottom: 140px;
       max-width: 420px;
       margin-left: auto;
       margin-right: auto;
     }
 
-    .profile {
-      padding: 16px;
+    .container {
+      padding: 1rem;
     }
 
     .profile img {
       height: 40px;
       width: 40px;
-      border-radius: 50%;
+      border-radius: 9999px;
     }
 
     .balance-bar {
       background: white;
-      margin: 16px;
-      border-radius: 16px;
-      padding: 16px;
+      border-radius: 20px;
+      padding: 1rem;
       display: flex;
       align-items: center;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      margin-top: 1rem;
+      gap: 1rem;
     }
 
-    .balance-icon {
-      background-color: #e2e6ea;
-      padding: 8px;
-      border-radius: 50%;
-      margin-right: 16px;
-    }
-
-    .balance-icon img {
+    .balance-bar img {
       height: 16px;
       width: 16px;
     }
 
-    .balance-text p {
-      margin: 0;
-    }
-
-    .balance-text .amount {
-      font-size: 22px;
-      font-weight: bold;
-    }
-
-    .balance-text .label {
-      color: gray;
-      font-size: 14px;
-    }
-
-    .send-payments {
-      padding: 0 16px;
-      margin-top: 24px;
-    }
-
-    .send-payments h2 {
-      font-weight: bold;
+    .send-section h2 {
       font-size: 16px;
-      margin-bottom: 12px;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
     }
 
     .send-box {
       background: white;
-      border-radius: 16px;
-      padding: 16px;
+      border-radius: 20px;
+      padding: 1rem;
       display: flex;
-      gap: 16px;
+      gap: 1rem;
+      align-items: flex-start;
     }
 
     .send-box img {
@@ -85,80 +61,76 @@
       width: 40px;
     }
 
-    .send-box p {
-      margin: 2px 0;
-    }
-
-    .send-box a {
-      color: #2563eb;
-      font-weight: 500;
-      font-size: 14px;
-      text-decoration: none;
-    }
-
     .transactions {
-      margin-top: 24px;
-      padding: 0 16px;
+      margin-top: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
 
     .transaction {
       background: white;
-      border-radius: 12px;
-      padding: 20px;
+      border-radius: 16px;
+      padding: 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
     }
 
     .transaction-left {
       display: flex;
+      gap: 0.6rem;
       align-items: center;
-      gap: 10px;
     }
 
-    .transaction-left .img-label {
+    .icon-label {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .transaction-left img {
-      height: 40px;
-      width: 40px;
-      border-radius: 50%;
+    .icon-label img {
+      height: 32px;
+      width: 32px;
+      border-radius: 9999px;
     }
 
-    .transaction-left .img-label p {
+    .icon-label p {
       font-size: 10px;
       color: gray;
       margin-top: 4px;
     }
 
-    .name-date p {
+    .text-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-left: 0;
+    }
+
+    .text-details p {
       margin: 0;
     }
 
-    .name-date .name {
-      font-weight: 600;
+    .name {
       font-size: 14px;
+      font-weight: bold;
     }
 
-    .name-date .date {
+    .date {
       font-size: 12px;
       color: gray;
     }
 
     .amount {
-      font-weight: bold;
       font-size: 14px;
+      font-weight: bold;
     }
 
-    .amount.green {
+    .amount.positive {
       color: green;
     }
 
-    /* Bottom Navigation */
     nav {
       position: fixed;
       bottom: 0;
@@ -167,22 +139,25 @@
       max-width: 420px;
       background: white;
       border-top: 1px solid #ddd;
-      padding: 12px 16px;
-      box-shadow: 0 -1px 4px rgba(0,0,0,0.05);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 999;
     }
 
-    .nav-buttons {
+    .action-buttons {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 16px;
+      gap: 1rem;
     }
 
-    .nav-buttons button {
-      width: 48%;
+    .action-buttons button {
+      flex: 1;
       background: black;
       color: white;
       font-weight: bold;
-      padding: 10px 0;
+      padding: 0.75rem 1rem;
       border-radius: 9999px;
       border: none;
       cursor: pointer;
@@ -190,14 +165,16 @@
 
     .nav-icons {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-around;
     }
 
     .nav-icons a {
-      text-align: center;
-      text-decoration: none;
-      color: black;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       font-size: 12px;
+      color: black;
+      text-decoration: none;
     }
 
     .nav-icons img {
@@ -209,127 +186,135 @@
 </head>
 <body>
 
-  <!-- Top Profile -->
-  <div class="profile">
-    <img src="IMG-20250503-WA0015.jpg" alt="Profile" />
-  </div>
-
-  <!-- Balance Bar -->
-  <div class="balance-bar">
-    <div class="balance-icon">
-      <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" />
+  <div class="container">
+    <!-- Top Profile -->
+    <div class="profile">
+      <img src="IMG-20250503-WA0015.jpg" alt="Profile" />
     </div>
-    <div class="balance-text">
-      <p class="amount">US$0.13</p>
-      <p class="label">PayPal balance</p>
-    </div>
-  </div>
 
-  <!-- Send Payments -->
-  <div class="send-payments">
-    <h2>Send Payments</h2>
-    <div class="send-box">
-      <img src="https://cdn-icons-png.flaticon.com/512/1828/1828490.png" />
+    <!-- Balance Bar -->
+    <div class="balance-bar">
+      <div style="background:#e2e6ea; padding: 8px; border-radius: 9999px;">
+        <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" />
+      </div>
       <div>
-        <p><strong>Pay From Your Phone</strong></p>
-        <p style="color: gray;">For the things you love.</p>
-        <a href="#">Send now</a>
+        <p style="font-size: 22px; font-weight: bold;">US$0.13</p>
+        <p style="font-size: 14px; color: gray;">PayPal balance</p>
       </div>
     </div>
-  </div>
 
-  <!-- Transactions -->
-  <div class="transactions">
-
-    <!-- Transaction 1 -->
-    <div class="transaction">
-      <div class="transaction-left">
-        <div class="img-label">
-          <img src="IMG-20250503-WA0015.jpg" />
-          <p>Payment received</p>
-        </div>
-        <div class="name-date">
-          <p class="name">PrankTexts.com</p>
-          <p class="date">27 Apr</p>
+    <!-- Send Payments -->
+    <div class="send-section">
+      <h2>Send Payments</h2>
+      <div class="send-box">
+        <img src="https://cdn-icons-png.flaticon.com/512/1828/1828490.png" />
+        <div>
+          <p style="font-weight: 600; font-size: 14px;">Pay From Your Phone</p>
+          <p style="color: gray; font-size: 14px;">For the things you love.</p>
+          <a href="#" style="color: #2563eb; font-size: 14px; font-weight: 500;">Send now</a>
         </div>
       </div>
-      <p class="amount">-US$1</p>
     </div>
 
-    <!-- Transaction 2 -->
-    <div class="transaction">
-      <div class="transaction-left">
-        <div class="img-label">
-          <img src="images.png" />
-          <p>Payment received</p>
+    <!-- Transactions -->
+    <div class="transactions">
+      <!-- Transaction 1 -->
+      <div class="transaction">
+        <div class="transaction-left">
+          <div class="icon-label">
+            <img src="IMG-20250503-WA0015.jpg" />
+            <p>Payment received</p>
+          </div>
+          <div class="text-details">
+            <p class="name">PrankTexts.com</p>
+            <p class="date">27 Apr</p>
+          </div>
         </div>
-        <div class="name-date">
-          <p class="name">THUNES</p>
-          <p class="date">27 Apr</p>
-        </div>
+        <p class="amount">-US$1</p>
       </div>
-      <p class="amount green">+US$1.13</p>
-    </div>
 
-    <!-- Transaction 3 -->
-    <div class="transaction">
-      <div class="transaction-left">
-        <div class="img-label">
-          <img src="images.png" />
-          <p>Payment</p>
+      <!-- Transaction 2 -->
+      <div class="transaction">
+        <div class="transaction-left">
+          <div class="icon-label">
+            <img src="images.png" />
+            <p>Payment received</p>
+          </div>
+          <div class="text-details">
+            <p class="name">THUNES</p>
+            <p class="date">27 Apr</p>
+          </div>
         </div>
-        <div class="name-date">
-          <p class="name">THUNES</p>
-          <p class="date">18 Apr</p>
-        </div>
+        <p class="amount positive">+US$1.13</p>
       </div>
-      <p class="amount">-US$1.49</p>
-    </div>
 
-    <!-- Transaction 4 -->
-    <div class="transaction">
-      <div class="transaction-left">
-        <div class="img-label">
-          <img src="images.png" />
-          <p>Payment received</p>
+      <!-- Transaction 3 -->
+      <div class="transaction">
+        <div class="transaction-left">
+          <div class="icon-label">
+            <img src="images.png" />
+            <p>Payment</p>
+          </div>
+          <div class="text-details">
+            <p class="name">THUNES</p>
+            <p class="date">18 Apr</p>
+          </div>
         </div>
-        <div class="name-date">
-          <p class="name">John Doe</p>
-          <p class="date">12 Apr</p>
-        </div>
+        <p class="amount">-US$1.49</p>
       </div>
-      <p class="amount green">+US$3.00</p>
-    </div>
 
-    <!-- Transaction 5 -->
-    <div class="transaction">
-      <div class="transaction-left">
-        <div class="img-label">
-          <img src="images.png" />
-          <p>Payment</p>
+      <!-- Transaction 4 -->
+      <div class="transaction">
+        <div class="transaction-left">
+          <div class="icon-label">
+            <img src="images.png" />
+            <p>Payment received</p>
+          </div>
+          <div class="text-details">
+            <p class="name">John Doe</p>
+            <p class="date">12 Apr</p>
+          </div>
         </div>
-        <div class="name-date">
-          <p class="name">Netflix</p>
-          <p class="date">10 Apr</p>
-        </div>
+        <p class="amount positive">+US$3.00</p>
       </div>
-      <p class="amount">-US$7.99</p>
-    </div>
 
+      <!-- Transaction 5 -->
+      <div class="transaction">
+        <div class="transaction-left">
+          <div class="icon-label">
+            <img src="images.png" />
+            <p>Payment</p>
+          </div>
+          <div class="text-details">
+            <p class="name">Netflix</p>
+            <p class="date">10 Apr</p>
+          </div>
+        </div>
+        <p class="amount">-US$7.99</p>
+      </div>
+    </div>
   </div>
 
   <!-- Bottom Navigation -->
   <nav>
-    <div class="nav-buttons">
+    <div class="action-buttons">
       <button>Send</button>
       <button>Request</button>
     </div>
     <div class="nav-icons">
-      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/1946/1946433.png" /><span>Home</span></a>
-      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/591/591574.png" /><span>Payments</span></a>
-      <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/254/254638.png" /><span>Wallet</span></a>
+      <a href="#">
+        <img src="https://cdn-icons-png.flaticon.com/512/1946/1946433.png" />
+        <span>Home</span>
+      </a>
+      <a href="#">
+        <img src="https://cdn-icons-png.flaticon.com/512/591/591574.png" />
+        <span>Payments</span>
+      </a>
+      <a href="#">
+        <img src="https://cdn-icons-png.flaticon.com/512/254/254638.png" />
+        <span>Wallet</span>
+      </a>
     </div>
   </nav>
-
 </body>
 </html>
